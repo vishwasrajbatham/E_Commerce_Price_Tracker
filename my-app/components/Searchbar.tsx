@@ -35,9 +35,7 @@ const Searchbar = () => {
 //we can proceed
     try{
       setisLoading(true);
-      //Server in action
-      //Creating functionality
-      //Scraoing the data
+      //Server in action->Creating functionality->Scraping the data
       const product = await scrapeAndStoreProduct(SearchPrompt);
 
     }catch(error){

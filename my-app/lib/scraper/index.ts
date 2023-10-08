@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { extractPrice } from '../utility';
+import { extractPrice, extractCurrency } from "../utility";
 
 export async function scrapeAmazonProduct(url:string) {
     if(!url)    return;
@@ -29,16 +29,36 @@ export async function scrapeAmazonProduct(url:string) {
         //Fetch the product data
         const response = await axios.get(url, options);
         const $ = cheerio.load(response.data);
+        const title = $('#productTitle').text().trim(); //Extract the product title
+//This all needs to run. I have placed it inside comment 
+        
+        /*const currentPrice = extractPrice(
+            $('.priceToPay span.a-price-whole'),
+            $('a.size.base.a-color-price'),
+            $('.a-button-selected .a-color-base'),
+            $('.a-price.a-text-price'),
+            $('span.a-offscreen'),
+            $('#priceblock_ourprice'),                  // Main product price
+            $('#priceblock_dealprice'),                 // Deal price (if available)
+            $('.a-price span.a-offscreen'),             // Additional prices (e.g., used, new)
+            $('#price_inside_buybox'),
+            $('reinventPricePriceToPayMargin')
+        );*/
+     
+        const images = 
+          $('#imgBlkFront').attr('data-a-dynamic-image') ||
+          $('#landingImage').attr('data-a-dynamic-image') ||
+          '{}'
 
-        //Extract the product title
-        const title = $('#productTitle').text().trim();
-        const currentPrice = extractPrice(
-            $('.priceToPay span .a-price-whole'),
-            $('a.size.base .a-color-price'),
-            $('a-button-selected .a-color-base'),
-        );
-
-        console.log({title, currentPrice});
+        const imageUrls = Object.keys(JSON.parse(images));
+        console.log(response);
+        //const currency = extractCurrency($('.a-price-symbol'))
+        //const discountRate = $('.savingsPercentage,').text().replace(/[-%]/g, "");
+        console.log({title, images});
+        //console.log({currency});
+        //console.log({currentPrice});
+        //console.log({discountRate});  
+        
 
     } 
     catch (error: any) {

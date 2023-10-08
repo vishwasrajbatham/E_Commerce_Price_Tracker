@@ -1,4 +1,4 @@
-"use server"    //all code written here will run o
+"use server"    //all code written here will run on server
 import { scrapeAmazonProduct } from "../scraper";
 
 export async function scrapeAndStoreProduct(productUrl : string) {
