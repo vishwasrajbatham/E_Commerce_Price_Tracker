@@ -11,13 +11,8 @@ export async function scrapeAndStoreProduct(productUrl : string) {
     if(!productUrl)  return;
     
     try {
-        //console.log("connexting to database in scrape and store product function");
         connectToDB();
-        //console.log("connected to database in scrape and store product function");
-        //scrap the product
-        //console.log({productUrl});
         const scrapedProduct = await scrapeAmazonProduct(productUrl);
-        //console.log("received scraped product ");
         if(!scrapedProduct) return;
 
         let product = scrapedProduct;
@@ -53,9 +48,6 @@ export async function scrapeAndStoreProduct(productUrl : string) {
 
 export async function getProductById(productId: string){
     try {
-        //console.log("Printing product id from getPRoductById",{productId});
-        //here we need to connect to databse again because this connection happedns
-        //independent of the function so that the load on the server doesnt increase too much
         connectToDB();
         const product = await Product.findOne({_id:productId});
         if(!product)    return null;
@@ -104,7 +96,7 @@ export async function addUserEmailToProduct(productId:string, userEmail:string) 
         if(!userExists){
             product.users.push({email: userEmail});
             await product.save();
-            const emailContent = generateEmailBody(product, "WELCOME"); 
+            const emailContent = await generateEmailBody(product, "WELCOME"); 
 
             await sendEmail(emailContent, [userEmail]);
         }
