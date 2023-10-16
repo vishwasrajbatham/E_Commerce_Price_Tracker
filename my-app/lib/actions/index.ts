@@ -29,7 +29,7 @@ export async function scrapeAndStoreProduct(productUrl : string) {
                 priceHistory: updatedPriceHistory,
                 lowestPrice: getLowestPrice(updatedPriceHistory),
                 highestPrice: getHighestPrice(updatedPriceHistory),
-                avgPrice: getAveragePrice(updatedPriceHistory),
+                averagePrice: getAveragePrice(updatedPriceHistory),
             }
         }
 
@@ -71,7 +71,7 @@ export async function getAllProducts(){
 
 export async function getSimilarProducts(productId: string){
     try {
-        console.log("Printing product id from getPRoductById",{productId});
+        //console.log("Printing product id from getPRoductById",{productId});
         //here we need to connect to databse again because this connection happedns
         //independent of the function so that the load on the server doesnt increase too much
         connectToDB();
