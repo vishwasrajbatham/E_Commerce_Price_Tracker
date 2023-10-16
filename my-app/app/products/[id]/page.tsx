@@ -29,7 +29,7 @@ const ProductDetails = async ({params: {id}} : Props) => {
             alt={product.title}
             width={582}
             height={400}
-            className="product-card_img"
+            className="mx-auto"
           /> 
         </div>
 
