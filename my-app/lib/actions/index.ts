@@ -74,9 +74,13 @@ export async function getSimilarProducts(productId: string){
         //here we need to connect to databse again because this connection happedns
         //independent of the function so that the load on the server doesnt increase too much
         connectToDB();
-        const product = await Product.findOne({_id:productId});
-        if(!product)    return null;
-        return product;
+        const currentProduct = await Product.findById(productId);
+        if(!currentProduct)    return null;
+
+        const similarProducts = await Product.find({
+            _id: {$ne: productId},
+        }).limit(3);
+        return similarProducts;
     } 
     catch (error) {
         console.log(error);
