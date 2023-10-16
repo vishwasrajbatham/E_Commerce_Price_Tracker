@@ -17,7 +17,7 @@ export async function scrapeAmazonProduct(url:string) {
     
     const options = {
         auth : {
-            username : '${userName}-session-${session_id}',
+            username : `${userName}-session-${session_id}`,
             password,
         },
         host : 'brd.superproxy.io',
@@ -103,6 +103,6 @@ export async function scrapeAmazonProduct(url:string) {
 
     } 
     catch (error: any) {
-        throw new Error('Failed to scrape product : ${error.message}')
+        throw new Error(`Failed to scrape product : ${error.message}`);
     }
 }

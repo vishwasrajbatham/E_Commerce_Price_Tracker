@@ -39,7 +39,7 @@ export async function scrapeAndStoreProduct(productUrl : string) {
             {upsert: true, new: true}
         );
         //need to revalidate the path
-        revalidatePath('/products/${newProduct._id}')
+        revalidatePath(`/products/${newProduct._id}`)
     } 
     catch (error: any) {
         throw new Error(`Failed to create/update product: ${error.message}`);
@@ -71,7 +71,6 @@ export async function getAllProducts(){
 
 export async function getSimilarProducts(productId: string){
     try {
-        //console.log("Printing product id from getPRoductById",{productId});
         //here we need to connect to databse again because this connection happedns
         //independent of the function so that the load on the server doesnt increase too much
         connectToDB();
