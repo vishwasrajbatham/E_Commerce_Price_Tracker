@@ -21,7 +21,9 @@ export async function GET(){
                 if(!scrapedProduct)  throw new Error("No updated product found");
                 const updatedPriceHistory: any = [
                     ...currentProduct.priceHistory,
-                    {price:scrapedProduct.currentPrice}  
+                    {
+                        price: scrapedProduct.currentPrice
+                    },  
                 ]
         
                 const product = {
@@ -29,11 +31,11 @@ export async function GET(){
                     priceHistory: updatedPriceHistory,
                     lowestPrice: getLowestPrice(updatedPriceHistory),    
                     highestPrice: getHighestPrice(updatedPriceHistory),
-                    avgPrice: getAveragePrice(updatedPriceHistory),
+                    averagePrice: getAveragePrice(updatedPriceHistory),
                 }
                 const updatedProduct = await Product.findOneAndUpdate(
                     {url: product.url},
-                    product,
+                    product
                 );
 
                 //Checking each product status and send email accordingly
@@ -44,13 +46,13 @@ export async function GET(){
                         url: updatedProduct.url,
                     }
                     const emailContent = await generateEmailBody(productInfo, emailNotifType);
-                    const userEmails = updatedProduct.users.map((user: any) => user.email )
+                    const userEmails = updatedProduct.users.map((user: any) => user.email );
                     await sendEmail(emailContent, userEmails);
                     
                 }
                 return updatedProduct;
             })
-        )
+        );
         return NextResponse.json({
             message: 'ok',
             data: updatedProducts
