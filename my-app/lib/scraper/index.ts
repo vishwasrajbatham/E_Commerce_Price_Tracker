@@ -28,16 +28,14 @@ export async function scrapeAmazonProduct(url:string) {
     try {
         //Fetch the product data
         const response = await axios.get(url, options);
-        //console.log("Looging response -> ",response);
         const $ = cheerio.load(response.data);
         const title = $('#productTitle').text().trim(); //Extract the product title
-//This all needs to run. I have placed it inside comment 
         
         //const currentPrice = "2510";
                 
         //const originalPrice = "5846";
 
-        //const outOfStock = 'currently unavailable' === 'currently unavailable';
+        const outOfStock = 'currently unavailable' === 'currently unavailable';
         
         const currentPrice = extractPrice(
             $('.priceToPay span.a-price-whole'),
@@ -62,21 +60,19 @@ export async function scrapeAmazonProduct(url:string) {
             $('.a-button-selected .a-color-base'),
             $('.a-price.a-text-price')
         );
-
+/*
         const outOfStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable';
         
         const currency = extractCurrency($('.a-price-symbol'))
         const discountRate = $('.savingsPercentage,').text().replace(/[-%]/g, "");
-        
-        
-
+        */
         const images = 
           $('#imgBlkFront').attr('data-a-dynamic-image') ||
           $('#landingImage').attr('data-a-dynamic-image') ||
-          '{}'/*
+          '{}'
         const currency = "$";
         const discountRate = "13";
-*/
+
         const imageUrls = Object.keys(JSON.parse(images));
         const description = extractDescription($);
         //convert scraped data to object
