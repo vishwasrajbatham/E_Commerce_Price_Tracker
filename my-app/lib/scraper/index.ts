@@ -33,13 +33,13 @@ export async function scrapeAmazonProduct(url:string) {
         const title = $('#productTitle').text().trim(); //Extract the product title
 //This all needs to run. I have placed it inside comment 
         
-        const currentPrice = "2510";
+        //const currentPrice = "2510";
                 
         const originalPrice = "5846";
 
         const outOfStock = 'currently unavailable' === 'currently unavailable';
         
-        /*const currentPrice = extractPrice(
+        const currentPrice = extractPrice(
             $('.priceToPay span.a-price-whole'),
             $('a.size.base.a-color-price'),
             $('.a-button-selected .a-color-base'),
@@ -51,7 +51,7 @@ export async function scrapeAmazonProduct(url:string) {
             $('#price_inside_buybox'),
             $('reinventPricePriceToPayMargin')
         );
-
+/*
         const originalPrice = extractPrice(
             $('#priceblock_ourprice'),
             $('#listPrice'),
