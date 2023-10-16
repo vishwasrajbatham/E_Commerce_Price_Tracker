@@ -31,8 +31,6 @@ const ProductDetails = async ({params: {id}} : Props) => {
           height={400}
           className="product-card_img"
         /> 
-        </div>
-
         <div className='flex-1 flex flex-col'>
           <div className='flex justify-between items-start gap-5 flex-wrap pb-6'>
             <div className='flex flex-col gap-3'>
@@ -40,6 +38,9 @@ const ProductDetails = async ({params: {id}} : Props) => {
             </div>
           </div>
         </div>
+        </div>
+
+        
 
         <div className='flex-1  flex-col gap-3'>
           <div className='flex justify-between'>
