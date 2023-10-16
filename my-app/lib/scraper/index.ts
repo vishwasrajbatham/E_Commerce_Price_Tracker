@@ -35,9 +35,9 @@ export async function scrapeAmazonProduct(url:string) {
         
         //const currentPrice = "2510";
                 
-        const originalPrice = "5846";
+        //const originalPrice = "5846";
 
-        const outOfStock = 'currently unavailable' === 'currently unavailable';
+        //const outOfStock = 'currently unavailable' === 'currently unavailable';
         
         const currentPrice = extractPrice(
             $('.priceToPay span.a-price-whole'),
@@ -51,7 +51,7 @@ export async function scrapeAmazonProduct(url:string) {
             $('#price_inside_buybox'),
             $('reinventPricePriceToPayMargin')
         );
-/*
+
         const originalPrice = extractPrice(
             $('#priceblock_ourprice'),
             $('#listPrice'),
@@ -68,15 +68,15 @@ export async function scrapeAmazonProduct(url:string) {
         const currency = extractCurrency($('.a-price-symbol'))
         const discountRate = $('.savingsPercentage,').text().replace(/[-%]/g, "");
         
-        */
+        
 
         const images = 
           $('#imgBlkFront').attr('data-a-dynamic-image') ||
           $('#landingImage').attr('data-a-dynamic-image') ||
-          '{}'
+          '{}'/*
         const currency = "$";
         const discountRate = "13";
-
+*/
         const imageUrls = Object.keys(JSON.parse(images));
         const description = extractDescription($);
         //convert scraped data to object
