@@ -39,39 +39,29 @@ export async function scrapeAmazonProduct(url:string) {
         
         const currentPrice = extractPrice(
             $('.priceToPay span.a-price-whole'),
-            $('a.size.base.a-color-price'),
+            $('.a.size.base.a-color-price'),
             $('.a-button-selected .a-color-base'),
-            $('.a-price.a-text-price'),
-            $('span.a-offscreen'),
-            $('#priceblock_ourprice'),                  // Main product price
-            $('#priceblock_dealprice'),                 // Deal price (if available)
-            $('.a-price span.a-offscreen'),             // Additional prices (e.g., used, new)
-            $('#price_inside_buybox'),
-            $('reinventPricePriceToPayMargin')
         );
 
         const originalPrice = extractPrice(
             $('#priceblock_ourprice'),
+            $('.a-price.a-text-price span.a-offscreen'),
             $('#listPrice'),
-            $('.priceblock_dealprice'),
-            $('.priceToPay span.a-price-whole'),
-            $('.priceToPay span.a-price-whole'),
-            $('a.size.base.a-color-price'),
-            $('.a-button-selected .a-color-base'),
-            $('.a-price.a-text-price')
+            $('#priceblock_dealprice'),
+            $('.a-size-base.a-color-price')
         );
 /*
         const outOfStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable';
         
-        const currency = extractCurrency($('.a-price-symbol'))
-        const discountRate = $('.savingsPercentage,').text().replace(/[-%]/g, "");
         */
         const images = 
           $('#imgBlkFront').attr('data-a-dynamic-image') ||
           $('#landingImage').attr('data-a-dynamic-image') ||
           '{}'
-        const currency = "$";
-        const discountRate = "13";
+        const currency = extractCurrency($('.a-price-symbol'))
+        //const currency = "$";
+        const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, "");
+        //const discountRate = "13";
 
         const imageUrls = Object.keys(JSON.parse(images));
         const description = extractDescription($);
