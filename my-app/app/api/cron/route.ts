@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-
 import { getLowestPrice, getHighestPrice, getAveragePrice, getEmailNotifType } from "@/lib/utility";
 import { connectToDB } from "@/lib/mongoose";
 import Product from "@/lib/models/product.model";

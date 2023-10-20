@@ -87,9 +87,11 @@ export function getLowestPrice(priceList: PriceHistoryItem[]) {
 }
 
 export function getAveragePrice(priceList: PriceHistoryItem[]) {
+  console.log("sumOfPrices");
   const sumOfPrices = priceList.reduce((acc, curr) => acc + curr.price, 0);
-  const averagePrice = sumOfPrices / priceList.length || 0;
-
+  console.log(sumOfPrices?sumOfPrices:"sumOfPrices");
+  const averagePrice = priceList.length ? (sumOfPrices / priceList.length) : 1;
+  console.log("averagePrice->", averagePrice);
   return averagePrice;
 }
 

@@ -80,6 +80,7 @@ const ProductDetails = async ({params: {id}} : Props) => {
               </div>
             </div>
           </div>
+
           <div className='product-info'>
             <div className='flex flex-col gap-2'>
               <p className='text-[34px] text-secondary font-bold'>
@@ -106,7 +107,7 @@ const ProductDetails = async ({params: {id}} : Props) => {
                   </p>
                   
                 </div>
-                <div className='product-reviews border-2 border-red-200'>
+                <div className='product-reviews'>
                   <Image
                     src="/assets/icons/comment.svg"
                     alt="comment"
@@ -137,21 +138,21 @@ const ProductDetails = async ({params: {id}} : Props) => {
               <PriceInfoCard
                 title = "Average Price"
                 iconSrc="/assets/icons/chart.svg"
-                value={`${product.currency} ${formatNumber(product.currentPrice)}`}
+                value={`${product.currency} ${formatNumber(product.averagePrice)}`}
                 borderColor="#b6dbff"
               />
 
               <PriceInfoCard
                 title = "Max Price"
                 iconSrc="/assets/icons/arrow-up.svg"
-                value={`${product.currency} ${formatNumber(product.currentPrice)}`}
+                value={`${product.currency} ${formatNumber(product.highestPrice)}`}
                 borderColor="#b6dbff"
               />
 
               <PriceInfoCard
                 title = "Min Price"
                 iconSrc="/assets/icons/arrow-down.svg"
-                value={`${product.currency} ${formatNumber(product.currentPrice)}`}
+                value={`${product.currency} ${formatNumber(product.lowestPrice)}`}
                 borderColor="#b6dbff"
               />
             </div>
