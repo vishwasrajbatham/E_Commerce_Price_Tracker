@@ -14,17 +14,18 @@ export async function GET(request: Request) {
   try {
     connectToDB();
 
-    const products = await Product.find({});
+    const products = await Product.find({});  //find{} beacsue it will now find all the products
 
     if (!products) throw new Error("No product fetched");
 
-    // ======================== 1 SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
-    const updatedProducts = await Promise.all(
+    // SCRAPE LATEST PRODUCT DETAILS & UPDATE DB
+    
+    const updatedProducts = await Promise.all(        //all asynchronous functions
       products.map(async (currentProduct) => {
         // Scrape product
         const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
 
-        if (!scrapedProduct) return;
+        if (!scrapedProduct) throw new Error("No product found while updating scraped product");
 
         const updatedPriceHistory = [
           ...currentProduct.priceHistory,
@@ -46,7 +47,7 @@ export async function GET(request: Request) {
           {
             url: product.url,
           },
-          product
+          product,
         );
 
         // ======================== 2 CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
@@ -76,7 +77,8 @@ export async function GET(request: Request) {
       message: "Ok",
       data: updatedProducts,
     });
-  } catch (error: any) {
+  } 
+  catch (error: any) {
     throw new Error(`Failed to get all products: ${error.message}`);
   }
 }

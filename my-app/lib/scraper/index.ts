@@ -4,14 +4,13 @@ import { extractPrice, extractCurrency, extractDescription } from "../utility";
 
 export async function scrapeAmazonProduct(url:string) {
     if(!url)    return;
-    //curl --proxy brd.superproxy.io:22225 --proxy-user brd-customer-hl_2334c692-zone-pricewise:fb2imh8hui99 -k https://lumtest.com/myip.json
 
     //Brightdata proxy configuration
 
     const userName = String(process.env.BRIGHT_DATA_USERNAME);
     const password = String(process.env.BRIGHT_DATA_PASSWORD);
     const port = 22225;
-    const session_id = (1000000*Math.random()) |0;
+    const session_id = (1000000*Math.random()) |10;
 
     //with this options ibject we will make request to access data from Bright data
     
@@ -30,10 +29,6 @@ export async function scrapeAmazonProduct(url:string) {
         const response = await axios.get(url, options);
         const $ = cheerio.load(response.data);
         const title = $('#productTitle').text().trim(); //Extract the product title
-        
-        //const currentPrice = "2510";
-                
-        //const originalPrice = "5846";
 
         const outOfStock = 'currently unavailable' === 'currently unavailable';
         
@@ -59,16 +54,15 @@ export async function scrapeAmazonProduct(url:string) {
           $('#landingImage').attr('data-a-dynamic-image') ||
           '{}'
         const currency = extractCurrency($('.a-price-symbol'))
-        //const currency = "$";
+
         const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, "");
-        //const discountRate = "13";
 
         const imageUrls = Object.keys(JSON.parse(images));
         const description = extractDescription($);
         //convert scraped data to object
         const data = {
             url, 
-            currency: currency ||'$',
+            currency: currency ||'',
             image: imageUrls[0],
             title,
             currentPrice: Number(currentPrice) || Number(originalPrice),

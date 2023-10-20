@@ -6,7 +6,6 @@ import ProductCard from "@/components/ProductCard"
 
 const Home = async () => {
   const allProducts = await getAllProducts();
-  //{allProducts?.map((product) => (  console.log(product._id) ))}
   return (
     <>
       <section className="px-2 md:px-20 py-24 border-red-500">
